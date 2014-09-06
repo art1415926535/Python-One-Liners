@@ -1,7 +1,8 @@
-import datetime
+from datetime import timedelta, datetime
+
  
-start_datetime = [2014, 1, 1, 12, 00, 1]
-end_datetime = [int(x) for x in input().replace(':', ' ').split()]
+start_datetime = [2014, 1, 1, 12, 00, 1]  # year, month, day, hour, minute, second
+end_datetime = [int(x) for x in input('Date and time (2014 11 22 12:42:35): ').replace(':', ' ').split()]
 
 d = {
     'second': 0,
@@ -9,15 +10,16 @@ d = {
     'hour': 0
 }
 
-start_datetime = datetime.datetime(
+start_datetime = datetime(
     start_datetime[0],
     start_datetime[1],
     start_datetime[2],
     start_datetime[3],
     start_datetime[4],
-    start_datetime[5])
+    start_datetime[5]
+)
 
-end_datetime = datetime.datetime(
+end_datetime = datetime(
     end_datetime[0],
     end_datetime[1],
     end_datetime[2],
@@ -30,9 +32,9 @@ delta_datetime = end_datetime-start_datetime
 
 count = int(delta_datetime.total_seconds())
 
+
 for delta_sec in range(count):
-    d_now = datetime.timedelta(seconds=delta_sec) + start_datetime
-    #print(d_now.hour, d_now.minute, d_now.second, sep=':')
+    d_now = timedelta(seconds=delta_sec) + start_datetime
 
     second = d_now.second
     minute = d_now.minute
@@ -41,27 +43,17 @@ for delta_sec in range(count):
 
     if not hour and not minute and not second:
         d['hour'] += 1
-        print('hour inc')
     if not minute and not second:
         d['minute'] += 1
-        print('minute inc')
     if not second:
         d['second'] += 1
-        print('second inc')
 
     if hour == minute and not second:
-        print(hour, '==', minute, '< hour({}) == minute({})'.format(d['hour'], d['minute']))
         d['hour'], d['minute'] = d['minute'], d['hour']
     else:
         if minute == second:
-            print(minute, '==', second, '< minute({}) == second({})'.format(d['minute'], d['second']))
             d['minute'], d['second'] = d['second'], d['minute']
         elif hour == second:
-            print(hour, '==', second, '< hour({}) == second({})'.format(d['hour'], d['second']))
             d['hour'], d['second'] = d['second'], d['hour']
 
-
-print('-'*60)
 print(d['hour'], d['minute'], d['second'])
-
-# 2014-1-1-12-2-35
