@@ -1,13 +1,7 @@
 import datetime
  
-a = [2014, 1, 1, 12, 00, 1]
-b = [int(x) for x in input().split('-')]
-
-aa = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
-bb = datetime.datetime(b[0], b[1], b[2], b[3], b[4], b[5])
-cc = bb-aa
-print(cc)
-count = cc.total_seconds()
+start_datetime = [2014, 1, 1, 12, 00, 1]
+end_datetime = [int(x) for x in input().replace(':', ' ').split()]
 
 d = {
     'second': 0,
@@ -15,15 +9,35 @@ d = {
     'hour': 0
 }
 
-for delta_sec in range(int(count)):
-    d_now = datetime.timedelta(seconds=delta_sec) + aa
-    print(d_now.hour, d_now.minute, d_now.second, sep=':')
+start_datetime = datetime.datetime(
+    start_datetime[0],
+    start_datetime[1],
+    start_datetime[2],
+    start_datetime[3],
+    start_datetime[4],
+    start_datetime[5])
+
+end_datetime = datetime.datetime(
+    end_datetime[0],
+    end_datetime[1],
+    end_datetime[2],
+    end_datetime[3],
+    end_datetime[4],
+    end_datetime[5]
+)
+
+delta_datetime = end_datetime-start_datetime
+
+count = int(delta_datetime.total_seconds())
+
+for delta_sec in range(count):
+    d_now = datetime.timedelta(seconds=delta_sec) + start_datetime
+    #print(d_now.hour, d_now.minute, d_now.second, sep=':')
 
     second = d_now.second
     minute = d_now.minute
     hour = (d_now.hour - 12) if d_now.hour > 11 else d_now.hour
     hour = hour * 5 + minute // 11
-
 
     if not hour and not minute and not second:
         d['hour'] += 1
