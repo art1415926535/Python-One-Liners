@@ -1,0 +1,1 @@
+"\n".join(' '*(max([(lambda st: len(list(__import__("itertools").takewhile(lambda x: x == ' ', st))))(j) for j in s.split('\n')]) - (lambda st: len(list(__import__("itertools").takewhile(lambda x: x == ' ', st))))(i)) + i[count(i):] for i in s.split('\n'))
